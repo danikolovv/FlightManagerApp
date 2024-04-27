@@ -1,0 +1,113 @@
+﻿@model IPagedList<FlightManagerApp.Models.Flight>
+
+
+@using FlightManagerApp.Areas.Identity.Data
+@using Microsoft.AspNetCore.Identity;
+@using Microsoft.AspNetCore;
+@using FlightManagerApp.Data;
+
+@inject SignInManager<ApplicationUser> SignInManager
+@inject UserManager<ApplicationUser> UserManager
+
+@using X.PagedList
+@using PagedList.Mvc
+@using X.PagedList.Mvc.Core
+<link href="~/Content/PagedList.css" rel="stylesheet" type="text/css" />
+
+@{
+    ViewData["Title"] = "Flights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@functions {
+    // Helper method to format flight duration
+    public string FormatDuration(TimeSpan duration)
+    {
+        string formattedDuration = "";
+
+        // Days
+        if (duration.Days > 0)
+        {
+            formattedDuration += duration.Days + "d ";
+        }
+
+        // Hours
+        if (duration.Hours > 0)
+        {
+            formattedDuration += duration.Hours + "h ";
+        }
+
+        // Minutes
+        if (duration.Minutes > 0)
+        {
+            formattedDuration += duration.Minutes + "m";
+        }
+
+        return formattedDuration.Trim();
+    }
+}
+
+<h2 class="text-center margin-p-nav">Flights</h2>
+
+<div class="container">
+    <div class="text-center">
+        @using (Html.BeginForm("Index", "Flight", FormMethod.Get))
+        {
+            <p>
+                Find by location: @Html.TextBox("SearchString", ViewBag.CurrentFilter as string)
+                <input type="submit" value="Search" />
+            </p>
+        }
+        @if (!string.IsNullOrEmpty(ViewBag.CurrentFilter as string))
+        {
+            <p>
+                <a href="@Url.Action("Index")" class="btn btn-secondary">Back to Full List</a>
+            </p>
+        }
+    </div>
+
+    <table class="table table-striped table-bordered">
+        <thead class="thead-dark">
+            <tr>
+                <th scope="col">@Html.ActionLink("From", "Index", new { sortOrder = ViewBag.FromSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th scope="col">@Html.ActionLink("To", "Index", new { sortOrder = ViewBag.ToSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th scope="col">@Html.ActionLink("Take Off Time", "Index", new { sortOrder = ViewBag.TakeOffTimeSortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th scope="col">Flight Duration</th> <!-- Flight Duration -->
+                <th scope="col">Plane Type</th>
+                <th scope="col">Plane Number</th>
+                <th scope="col">Pilot Name</th>
+                <th scope="col">@Html.ActionLink("Capacity", "Index", new { sortOrder = ViewBag.CapacitySortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th scope="col">@Html.ActionLink("Business Class Capacity", "Index", new { sortOrder = ViewBag.BusinessCapacitySortParm, currentFilter = ViewBag.CurrentFilter })</th>
+                <th scope="col">Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@Html.DisplayFor(modelItem => item.FlightFrom)</td>
+                    <td>@Html.DisplayFor(modelItem => item.FlightTo)</td>
+                    <td>@Html.DisplayFor(modelItem => item.TakeOffTime)</td>
+                    <td>@FormatDuration(item.LandingTime - item.TakeOffTime)</td> <!-- Flight Duration -->
+                    <td>@Html.DisplayFor(modelItem => item.PlaneType)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PlaneNumber)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PilotName)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PlaneCapacity)</td>
+                    <td>@Html.DisplayFor(modelItem => item.PlaneBusinessClassCapacity)</td>
+                    @if (SignInManager.IsSignedIn(User) && await UserManager.IsInRoleAsync(UserManager.GetUserAsync(User).Result, "admin"))
+                    {
+                        <td>
+                            <a href="@Url.Action("Edit", new { id = item.FlightID })">Edit</a> |
+                            <a href="@Url.Action("Details", new { id = item.FlightID })">Details</a> |
+                            <a href="@Url.Action("Delete", new { id = item.FlightID })">Delete</a>
+                        </td>
+                    }
+                    
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@Html.PagedListPager(Model, page => Url.Action("Index",
+                new { page, sortOrder = ViewBag.CurrentSort, currentFilter = ViewBag.CurrentFilter }))

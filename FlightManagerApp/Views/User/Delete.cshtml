@@ -1,0 +1,52 @@
+﻿@model AdminModel
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container margin-p-nav">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Delete Employee</div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.UserName)</th>
+                            <td>@Html.DisplayFor(model => model.UserName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Email)</th>
+                            <td>@Html.DisplayFor(model => model.Email)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                            <td>@Html.DisplayFor(model => model.FirstName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                            <td>@Html.DisplayFor(model => model.LastName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.EGN)</th>
+                            <td>@Html.DisplayFor(model => model.EGN)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Address)</th>
+                            <td>@Html.DisplayFor(model => model.Address)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                            <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                        </tr>
+                    </table>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@Model.Id" method="post" class="text-center">
+                        <button type="submit" class="btn btn-danger">Delete</button> |
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

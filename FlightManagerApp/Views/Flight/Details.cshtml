@@ -1,0 +1,97 @@
+﻿@model FlightManagerApp.Models.Flight
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="text-center margin-p-nav">Flight Details</h2>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h4>Flight Information</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th class="col-sm-2">Field</th>
+                    <th class="col-sm-10">Value</th>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.FlightFrom)</td>
+                    <td>@Html.DisplayFor(model => model.FlightFrom)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.FlightTo)</td>
+                    <td>@Html.DisplayFor(model => model.FlightTo)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.TakeOffTime)</td>
+                    <td>@Html.DisplayFor(model => model.TakeOffTime)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.LandingTime)</td>
+                    <td>@Html.DisplayFor(model => model.LandingTime)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PlaneType)</td>
+                    <td>@Html.DisplayFor(model => model.PlaneType)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PlaneNumber)</td>
+                    <td>@Html.DisplayFor(model => model.PlaneNumber)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PilotName)</td>
+                    <td>@Html.DisplayFor(model => model.PilotName)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PlaneCapacity)</td>
+                    <td>@Html.DisplayFor(model => model.PlaneCapacity)</td>
+                </tr>
+                <tr>
+                    <td>@Html.DisplayNameFor(model => model.PlaneBusinessClassCapacity)</td>
+                    <td>@Html.DisplayFor(model => model.PlaneBusinessClassCapacity)</td>
+                </tr>
+            </table>
+            <hr id="light-hr"/>
+            <h4>Passengers</h4>
+            <table class="table table-bordered">
+                <tr>
+                    <th>Reservation ID</th>
+                    <th>Passenger Name</th>
+                    <th>EGN</th>
+                    <th>Nationality</th>
+                    <th>Phone Number</th>
+                    <th>Email</th>
+                    <th>Ticket Type</th>
+                </tr>
+                @foreach (var reservation in Model.Reservations)
+                {
+                    <tr>
+                        <td>@reservation.ReservationID</td>
+                        <td>@($"{reservation.FirstName} {reservation.MiddleName} {reservation.LastName}")</td>
+                        <td>@reservation.EGN</td>
+                        <td>@reservation.Nationality</td>
+                        <td>@reservation.PhoneNumber</td>
+                        <td>@reservation.Email</td>
+                        <td>
+                            @if (reservation.TicketType == "2")
+                            {
+                                <text>Business</text>
+                            }
+                            else if (reservation.TicketType == "1")
+                            {
+                                <text>Regular</text>
+                            }
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
+    <div class="text-center mt-3 mb-5">
+        <a class="btn btn-primary" asp-action="Edit" asp-route-id="@Model?.FlightID">Edit</a> |
+        <a class="btn btn-secondary" asp-action="Index">Back to List</a>
+    </div>
+</div>

@@ -1,0 +1,74 @@
+﻿@model FlightManagerApp.Models.Reservation
+
+@{
+    ViewData["Title"] = "Details";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container margin-p-nav">
+
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">
+                    <h5>Reservation Details</h5>
+                </div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FirstName)</th>
+                            <td>@Html.DisplayFor(model => model.FirstName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.MiddleName)</th>
+                            <td>@Html.DisplayFor(model => model.MiddleName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LastName)</th>
+                            <td>@Html.DisplayFor(model => model.LastName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.EGN)</th>
+                            <td>@Html.DisplayFor(model => model.EGN)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Nationality)</th>
+                            <td>@Html.DisplayFor(model => model.Nationality)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PhoneNumber)</th>
+                            <td>@Html.DisplayFor(model => model.PhoneNumber)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Email)</th>
+                            <td>@Html.DisplayFor(model => model.Email)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.Flight)</th>
+                            <td>@Html.DisplayFor(model => model.Flight.FlightFrom)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.TicketType)</th>
+                            <td>
+                                @{
+                                    if (Model.TicketType == "1")
+                                    {
+                                        <text>Regular</text>
+                                    }
+                                    else if (Model.TicketType == "2")
+                                    {
+                                        <text>Business</text>
+                                    }
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+                <div class="card-footer">
+                    <a asp-action="Edit" asp-route-id="@Model?.ReservationID" class="btn btn-primary">Edit</a> |
+                    <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

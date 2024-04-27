@@ -1,0 +1,60 @@
+﻿@model FlightManagerApp.Models.Flight
+
+@{
+    ViewData["Title"] = "Delete";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container margin-p-nav">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card">
+                <div class="card-header">Delete Flight</div>
+                <div class="card-body">
+                    <table class="table">
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FlightFrom)</th>
+                            <td>@Html.DisplayFor(model => model.FlightFrom)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.FlightTo)</th>
+                            <td>@Html.DisplayFor(model => model.FlightTo)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.TakeOffTime)</th>
+                            <td>@Html.DisplayFor(model => model.TakeOffTime)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.LandingTime)</th>
+                            <td>@Html.DisplayFor(model => model.LandingTime)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PlaneType)</th>
+                            <td>@Html.DisplayFor(model => model.PlaneType)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PlaneNumber)</th>
+                            <td>@Html.DisplayFor(model => model.PlaneNumber)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PilotName)</th>
+                            <td>@Html.DisplayFor(model => model.PilotName)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PlaneCapacity)</th>
+                            <td>@Html.DisplayFor(model => model.PlaneCapacity)</td>
+                        </tr>
+                        <tr>
+                            <th>@Html.DisplayNameFor(model => model.PlaneBusinessClassCapacity)</th>
+                            <td>@Html.DisplayFor(model => model.PlaneBusinessClassCapacity)</td>
+                        </tr>
+                    </table>
+                    <form asp-action="DeleteConfirmed" asp-route-id="@Model.FlightID" method="post" class="text-center">
+                        <button type="submit" class="btn btn-danger">Delete</button> |
+                        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

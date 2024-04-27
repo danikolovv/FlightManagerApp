@@ -1,0 +1,85 @@
+﻿@model FlightManagerApp.Models.Reservation
+
+@{
+    ViewData["Title"] = "Edit";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2 class="margin-p-nav">Edit Reservation</h2>
+
+<div class="row justify-content-center">
+    <div class="col-md-8">
+        <form asp-action="Edit">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input type="hidden" asp-for="ReservationID" />
+
+            <div class="form-group">
+                <label asp-for="FirstName" class="control-label">First Name</label>
+                <input asp-for="FirstName" class="form-control" />
+                <span asp-validation-for="FirstName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="MiddleName" class="control-label">Middle Name</label>
+                <input asp-for="MiddleName" class="form-control" />
+                <span asp-validation-for="MiddleName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="LastName" class="control-label">Last Name</label>
+                <input asp-for="LastName" class="form-control" />
+                <span asp-validation-for="LastName" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="EGN" class="control-label">EGN</label>
+                <input asp-for="EGN" class="form-control" />
+                <span asp-validation-for="EGN" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Nationality" class="control-label">Nationality</label>
+                <input asp-for="Nationality" class="form-control" />
+                <span asp-validation-for="Nationality" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="PhoneNumber" class="control-label">Phone Number</label>
+                <input asp-for="PhoneNumber" class="form-control" />
+                <span asp-validation-for="PhoneNumber" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="Email" class="control-label">Email</label>
+                <input asp-for="Email" class="form-control" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="FlightID" class="control-label">Flight</label>
+                <select asp-for="FlightID" class="form-control" asp-items="ViewBag.FlightID"></select>
+                <span asp-validation-for="FlightID" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <label asp-for="TicketType" class="control-label">Ticket Type</label>
+                <select asp-for="TicketType" class="form-control">
+                    <option value="1">Regular</option>
+                    <option value="2">Business</option>
+                </select>
+                <span asp-validation-for="TicketType" class="text-danger"></span>
+            </div>
+
+            <div class="form-group text-center mt-4 mb-5">
+                <button type="submit" class="btn btn-primary">Save</button> |
+                <a asp-action="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+}
